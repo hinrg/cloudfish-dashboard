@@ -26,7 +26,7 @@ export function LoginPage() {
         <div className="bg-white shadow-lg rounded-3xl p-8 space-y-8">
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Login</h2>
-            <p className="mt-2 text-sm text-gray-600">Hello! Let's get started</p>
+            <p className="mt-2 text-sm text-gray-600">Hello! Let&apos;s get started</p>
           </div>
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-1">
