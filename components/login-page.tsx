@@ -19,10 +19,6 @@ export function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 to-blue-500 p-4">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <CloudIcon className="mx-auto h-12 w-12 text-white" />
-          <h2 className="mt-6 text-3xl font-extrabold text-white">Cloudfish Dashboard</h2>
-        </div>
         <div className="bg-white shadow-lg rounded-3xl p-8 space-y-8">
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Login</h2>
