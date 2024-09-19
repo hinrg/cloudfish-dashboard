@@ -4,8 +4,14 @@ import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 
+'use client'
+
+import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabase'
+import { useRouter } from 'next/navigation'
+
 export default function HelloWorld() {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<unknown>(null)
   const router = useRouter()
 
   useEffect(() => {
@@ -27,10 +33,13 @@ export default function HelloWorld() {
 
   if (!user) return null
 
+  // Type assertion here if you know the structure of the user object
+  const typedUser = user as { email: string }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 to-blue-500 p-4">
       <div className="bg-white shadow-lg rounded-3xl p-8 space-y-8 text-center">
-        <h1 className="text-3xl font-bold">Hello, {user.email}!</h1>
+        <h1 className="text-3xl font-bold">Hello, {typedUser.email}!</h1>
         <p>Welcome to your authenticated page.</p>
         <button
           onClick={handleSignOut}
