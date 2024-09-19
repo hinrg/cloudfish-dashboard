@@ -5,15 +5,27 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { CloudIcon } from 'lucide-react'
+import { supabase } from '@/lib/supabase'
+import { useRouter } from 'next/navigation'
 
 export function LoginPage() {
-  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const router = useRouter()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle login logic here
-    console.log('Login attempted with:', username, password)
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+      if (error) throw error
+      router.push('/hello-world')
+    } catch (error) {
+      console.error('Error logging in:', error)
+      alert('Error logging in. Please check your credentials.')
+    }
   }
 
   return (
@@ -26,19 +38,19 @@ export function LoginPage() {
           </div>
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-1">
-              <Label htmlFor="username" className="text-sm font-medium text-gray-700">
-                Username
+              <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+                Email
               </Label>
               <div className="relative">
                 <Input
-                  id="username"
-                  name="username"
-                  type="text"
+                  id="email"
+                  name="email"
+                  type="email"
                   required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <span className="absolute inset-y-0 right-0 flex items-center pr-3">
                   <CloudIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
